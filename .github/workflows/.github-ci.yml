@@ -11,15 +11,19 @@ jobs:
         python-version: [3.8]
     services:
       postgres:
-        image: postgres:12.2-alpine
-        # env:
-        #   POSTGRES_USER: postgres
-        #   POSTGRES_PASSWORD: postgres
-        #   POSTGRES_DB: ci_db_test
+        image: postgres
+        env:
+          POSTGRES_DB: xq-db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pg-password
         ports:
           - 5432:5432
-        # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -37,6 +41,7 @@ jobs:
         pip install -e . 
     - name: Test with pytest
       env: 
+        CI: true
         POSTGRES_DB: xq-db
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: pg-password

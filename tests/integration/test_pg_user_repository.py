@@ -11,6 +11,8 @@ from src.domain.ports.model import User
 
 
 def prepare_db():
+    print("test_pg_url: ", test_pg_url)
+    # test_pg_url = "postgresql://postgres:pg-password@postgres:5432/xq-db"
     engine = create_engine(
         test_pg_url,
         isolation_level="REPEATABLE READ",
