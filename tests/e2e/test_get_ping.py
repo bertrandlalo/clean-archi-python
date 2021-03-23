@@ -18,6 +18,6 @@ def test_get_ping(client):
     assert json.loads(rv.data) == "pong!"
 
 
-# def test_get_users(client):
-#     rv = client.get("/users")
-#     assert json.loads(rv.data) == None
+def test_get_users(client):
+    rv = client.get("/users")
+    assert json.loads(rv.data) == []
