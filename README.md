@@ -1,4 +1,7 @@
-# Clean-Archi-Python
+# Clean-Archi-Python 🇬🇧
+
+(Version française [ici](README.fr.md).)
+
 The design is inspired from the book [Cosmic Python](https://www.cosmicpython.com/). By the way, I'd encourage you to read it.
 
 ## Guidelines
