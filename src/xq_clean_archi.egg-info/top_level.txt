@@ -1,4 +1,0 @@
-adapters
-domain
-entrypoints
-helpers
