@@ -1,5 +1,5 @@
-# from src.domain.ports.model import User
-# from src.adapters.ndb_user_repository import NDBUserRepository
+# from domain.ports.model import User
+# from adapters.ndb_user_repository import NDBUserRepository
 
 
 # def test_can_add_user():

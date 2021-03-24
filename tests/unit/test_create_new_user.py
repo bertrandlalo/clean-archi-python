@@ -1,7 +1,7 @@
-from src.domain.ports.model import User
-from src.domain.ports.user_repository import InMemoryUserRepository
-from src.domain.ports.uuid import CustomUuid
-from src.domain.use_cases.create_new_user import CreateNewUser
+from domain.ports.model import User
+from domain.ports.user_repository import InMemoryUserRepository
+from domain.ports.uuid import CustomUuid
+from domain.use_cases.create_new_user import CreateNewUser
 
 
 def test_create_new_user():

@@ -8,7 +8,7 @@ Create a virtual environment, install the packages and the source.
 python3 -m venv venv 
 source venv/bin/activate 
 pip install -r requirements.txt
-pip install -e .
+pip install -e ./src
 ```
 
 ### Launch the tests

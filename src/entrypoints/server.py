@@ -2,8 +2,8 @@ from pathlib import Path
 from flask import Flask, jsonify
 from flask_cors import CORS
 
-from src.domain.ports.user_repository import AbstractUserRepository
-from src.adapters.csv_user_repository import CsvUserRepository
+from domain.ports.user_repository import AbstractUserRepository
+from adapters.csv_user_repository import CsvUserRepository
 
 # configuration
 DEBUG = True
@@ -33,6 +33,11 @@ def make_app(config):
     @app.route("/users", methods=["GET"])
     def get_all_users():
         return jsonify(config.user_repo.users)
+
+    @app.route("/user", methods=["POST"])
+    def add_new_user():
+        # TODO : add_new_user.execute(...)
+        pass
 
     return app
 

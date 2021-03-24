@@ -2,9 +2,10 @@ import csv
 import os
 from typing import List, Optional
 from pathlib import Path
-from src.domain.ports.model import User
-from src.domain.ports.user_repository import (
-    AbstractUserRepository, InMemoryUserRepository,
+from domain.ports.model import User
+from domain.ports.user_repository import (
+    AbstractUserRepository,
+    InMemoryUserRepository,
 )
 
 
@@ -49,7 +50,6 @@ class CsvUserRepository(AbstractUserRepository):
             reader = csv.DictReader(f)
             for row in reader:
                 self._users.append(User(**row))
-        
 
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()

@@ -1,13 +1,13 @@
 from sqlalchemy.engine import create_engine
 from tests.utils.test_pg_url import test_pg_url
 
-from src.adapters.postgres.db import (
+from adapters.postgres.db import (
     initialize_db,
     user_table,
     reset_db,
 )
-from src.adapters.postgres.pg_user_repository import PgUserRepository
-from src.domain.ports.model import User
+from adapters.postgres.pg_user_repository import PgUserRepository
+from domain.ports.model import User
 
 
 def prepare_db():

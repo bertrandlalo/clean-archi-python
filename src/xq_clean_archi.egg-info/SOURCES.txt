@@ -1,0 +1,13 @@
+setup.py
+adapters/__init__.py
+adapters/csv_user_repository.py
+adapters/ndb_user_repository.py
+adapters/postgres/__init__.py
+adapters/postgres/db.py
+adapters/postgres/pg_user_repository.py
+helpers/__init__.py
+helpers/csv.py
+xq_clean_archi.egg-info/PKG-INFO
+xq_clean_archi.egg-info/SOURCES.txt
+xq_clean_archi.egg-info/dependency_links.txt
+xq_clean_archi.egg-info/top_level.txt
