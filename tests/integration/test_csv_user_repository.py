@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from src.helpers.csv import reset_file_from_path
+from helpers.csv import reset_file_from_path
 
 csv_path = Path("tests/integration/data") / "user_repo.csv"
 

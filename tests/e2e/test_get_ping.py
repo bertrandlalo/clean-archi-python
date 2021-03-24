@@ -1,6 +1,6 @@
 from flask import json
 import pytest
-from src.entrypoints.server import Config, make_app
+from entrypoints.server import Config, make_app
 
 config = Config()
 
