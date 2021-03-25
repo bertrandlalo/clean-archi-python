@@ -6,4 +6,4 @@ class ListUsers:
         self.user_repository = user_repository
 
     def execute(self):
-        return self.user_repository.get_all()
+        return self.user_repository.users
