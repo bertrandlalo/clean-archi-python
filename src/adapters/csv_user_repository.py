@@ -1,11 +1,11 @@
 import csv
 import os
-from typing import List, Optional
 from pathlib import Path
+from typing import List, Optional
+
 from domain.ports.model import User
 from domain.ports.user_repository import (
     AbstractUserRepository,
-    InMemoryUserRepository,
 )
 
 
@@ -28,7 +28,7 @@ class CsvUserRepository(AbstractUserRepository):
         self.csv_path = csv_path
         csv_columns = ["uuid", "first_name", "last_name"]  # User.__annotations__.keys()
         if os.path.isfile(self.csv_path):
-            self._users = self._from_csv()
+            self._from_csv()
         else:
             mkdir_if_relevant(self.csv_path.parent)
             writerow(self.csv_path, csv_columns)
