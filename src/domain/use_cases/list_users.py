@@ -1,4 +1,4 @@
-from domain.ports import AbstractUserRepository
+from domain.ports.user_repository import AbstractUserRepository
 
 
 class ListUsers:
