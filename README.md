@@ -1,4 +1,7 @@
-# Clean-Archi-Python
+# Clean-Archi-Python 🇬🇧
+
+(Version française [ici](README.fr.md).)
+
 The design is inspired from the book [Cosmic Python](https://www.cosmicpython.com/). By the way, I'd encourage you to read it.
 
 ## Guidelines
@@ -23,6 +26,9 @@ python src/entrypoints/server.py
 ```
 
 ## "Clean" organization 
+Here is a nice illustration on hexagonal clean architecture : 
+
+![hexagonal-archi](hexagonal-1.png)
 
 If you open the src code, you'll notice the following organization :
 
@@ -41,3 +47,4 @@ If you open the src code, you'll notice the following organization :
   - ./server.py : the script to launch the application.
   - ./config.py : preparation of the application instances. 
   The entrypoint is tested in tests/e2e. 
+
