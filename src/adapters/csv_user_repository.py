@@ -58,6 +58,9 @@ class CsvUserRepository(AbstractUserRepository):
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()
 
+    def get_all(self) -> List[User]:
+        return self._users
+
     @property
     def users(self) -> List[User]:
         return self._users

@@ -8,6 +8,10 @@ class AbstractUserRepository(abc.ABC):
     def add(self, user: User):
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def get_all(self) -> List[User]:
+        raise NotImplementedError
+
 
 class InMemoryUserRepository(AbstractUserRepository):
     _users: List[User]
@@ -18,7 +22,14 @@ class InMemoryUserRepository(AbstractUserRepository):
     def add(self, user: User):
         self._users.append(user)
 
+    def get_all(self) -> List[User]:
+        return self._users
+
     # For test purposes only
     @property
     def users(self) -> List[User]:
         return self._users
+
+    @users.setter
+    def users(self, users: List[User]):
+        self._users = users

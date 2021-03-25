@@ -1,6 +1,5 @@
 from domain.ports.user import User, UserStatus
 from domain.ports.user_repository import AbstractUserRepository
-import uuid as uuid_lib
 
 from domain.ports.uuid import AbstractUuid
 

@@ -20,3 +20,6 @@ class PgUserRepository(AbstractUserRepository):
     def add(self, user: User) -> None:
         insertion = self.table.insert().values(**asdict(user))
         self.connection.execute(insertion)
+
+    def get_all(self) -> List[User]:
+        raise NotImplementedError
