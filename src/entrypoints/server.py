@@ -1,25 +1,29 @@
 from pathlib import Path
-from flask import Flask, jsonify
+
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from domain.ports.user_repository import AbstractUserRepository
 from adapters.csv_user_repository import CsvUserRepository
-
+from adapters.ndb.ndb_user_repository import NDBUserRepository
+from domain.ports.user_repository import AbstractUserRepository
 # configuration
-DEBUG = True
+from domain.ports.uuid import AbstractUuid, RealUuid
+from domain.use_cases.create_new_user import CreateNewUser
+from entrypoints.config.config_local import LocalConfig
 
 
 class Config:
     user_repo: AbstractUserRepository
+    uuid_generator: AbstractUuid
+    flask_config: dict
 
     def __init__(self) -> None:
-        self.user_repo = CsvUserRepository(csv_path=Path("data") / "user_repo.csv")
+        self.user_repo = CsvUserRepository(csv_path=Path("data") / "user_repo.csv", uuid_generator=RealUuid())
 
 
 def make_app(config):
     # instantiate the app
     app = Flask(__name__)
-    # app.config.from_object(__name__)
 
     # enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
