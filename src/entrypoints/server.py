@@ -43,6 +43,6 @@ def make_app(config):
 
 
 if __name__ == "__main__":
-    config = Config()
+    config = LocalConfig()
     app = make_app(config)
     app.run()
