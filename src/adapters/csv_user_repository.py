@@ -1,12 +1,13 @@
 import csv
 import os
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Type
 
 from domain.ports.model import User
 from domain.ports.user_repository import (
     AbstractUserRepository,
 )
+from domain.ports.uuid import AbstractUuid
 
 
 def mkdir_if_relevant(path: Path):
@@ -23,9 +24,10 @@ def writerow(csv_path: Path, row: List):
 class CsvUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self, csv_path: Path) -> None:
+    def __init__(self, csv_path: Path, uuid_generator: AbstractUuid) -> None:
         self._users = []
         self.csv_path = csv_path
+        self.uuid_generator = uuid_generator
         csv_columns = ["uuid", "first_name", "last_name"]  # User.__annotations__.keys()
         if os.path.isfile(self.csv_path):
             self._from_csv()
@@ -35,14 +37,17 @@ class CsvUserRepository(AbstractUserRepository):
 
     def add(self, user: User):
         self._users.append(user)
+        id = self.uuid_generator.make()
+
         writerow(
             self.csv_path,
             [
-                user.uuid,
+                id,
                 user.first_name,
                 user.last_name,
             ],
         )
+        user.set_id(id)
 
     def _from_csv(self) -> List[User]:
         self._users = []

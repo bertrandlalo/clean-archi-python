@@ -8,9 +8,8 @@ class CreateNewUser:
         self, user_repository: AbstractUserRepository, uuid=AbstractUuid
     ) -> None:
         self.user_repository = user_repository
-        self.uuid = uuid
+
 
     def execute(self, first_name: str, last_name: str):
-        uuid = self.uuid.make()
-        user = User(first_name, last_name, uuid)
+        user = User(first_name, last_name)
         self.user_repository.add(user)

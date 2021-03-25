@@ -1,6 +1,8 @@
 import abc
-from typing import List
+from typing import List, Any
+
 from .model import User
+from .uuid import AbstractUuid
 
 
 class AbstractUserRepository(abc.ABC):
@@ -9,10 +11,11 @@ class AbstractUserRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, uuid: str) -> User:
+    def get(self, uuid: Any) -> User:
         raise NotImplementedError
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def users(self) -> List[User]:
         raise NotImplementedError
 
@@ -20,10 +23,12 @@ class AbstractUserRepository(abc.ABC):
 class InMemoryUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self) -> None:
+    def __init__(self, uuid_generator: AbstractUuid) -> None:
+        self.uuid_generator = uuid_generator
         self._users = []
 
     def add(self, user: User):
+        user.set_id(self.uuid_generator.make())
         self._users.append(user)
 
     def get(self, uuid: str) -> User:
