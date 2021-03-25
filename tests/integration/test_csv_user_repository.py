@@ -1,8 +1,8 @@
 import csv
 from pathlib import Path
+from domain.ports.user import User
 from helpers.csv import reset_file_from_path
 
-from domain.ports.user import User
 from adapters.csv_user_repository import CsvUserRepository
 
 csv_path = Path("tests/integration/data") / "user_repo.csv"
@@ -13,6 +13,7 @@ def test_can_add_user():
     reset_file_from_path(csv_path)
     csv_user_repository = CsvUserRepository(csv_path=csv_path)
     csv_user_repository.add(user_example)
+
     with csv_path.open("r") as f:
         reader = csv.DictReader(f)
         assert list(reader)[0] == {
