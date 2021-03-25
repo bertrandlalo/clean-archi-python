@@ -36,8 +36,10 @@ def make_app(config):
 
     @app.route("/user", methods=["POST"])
     def add_new_user():
-        # TODO : add_new_user.execute(...)
-        pass
+        # config.user_repo.add()
+        json_data = request.get_json()
+        CreateNewUser(user_repository=config.user_repo, )
+        return 'ok', 200
 
     return app
 
