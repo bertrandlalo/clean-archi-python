@@ -11,4 +11,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pg-password
     volumes:
-      - ./docker-data/test:/var/lib/postgresql/data
+      - ./docker-data/test:/var/lib/postgresql/data:Z
+  datastore:
+    image: singularities/datastore-emulator
+    environment:
+      - DATASTORE_PROJECT_ID=experquiz-next
+      - DATASTORE_LISTEN_ADDRESS=0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - /docker-data/test-ndb:/opt/data:Z
