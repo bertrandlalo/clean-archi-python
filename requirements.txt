@@ -1,4 +1,4 @@
-pytest 
+pytest
 flask
 flask_cors
 sqlalchemy
