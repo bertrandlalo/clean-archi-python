@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pg-password
     volumes:
-      - ./docker-data/test:/var/lib/postgresql/data:Z
+      - ./docker-data/test:/var/lib/postgresql/data
   datastore:
     image: singularities/datastore-emulator
     environment:
@@ -20,4 +20,4 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /docker-data/test-ndb:/opt/data:Z
+      - /docker-data/test-ndb:/opt/data
