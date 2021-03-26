@@ -6,7 +6,7 @@ from domain.ports.model import User
 from domain.ports.uuid import CustomUuid
 from helpers.csv import reset_file_from_path
 
-csv_path = Path("integration/data") / "user_repo.csv"
+csv_path = Path("tests/integration/data") / "user_repo.csv"
 user_example = User(first_name="patrice", last_name="bertrand")
 
 
