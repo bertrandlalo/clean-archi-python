@@ -1,12 +1,18 @@
-import os
+from google.cloud import ndb
+from adapters.datastore.ndb_user_repository import NDBUserRepository
 
-from adapters.ndb.ndb_user_repository import NDBUserRepository
-from .model import Model
 
-class LocalConfig(Model):
+class LocalConfig:
     def __init__(self):
-        os.environ['DATASTORE_EMULATOR_HOST'] = '0.0.0.0:8000'  # in docker emulator port.
         self.user_repo = NDBUserRepository(project_id='clean-experquiz')
-        self.testing = True
-        # self.flask_config = {"TESTING": True, 'SECRET_KEY': '123456'}
+        self.has_middleware = True
+
+    @staticmethod
+    def wsgi_middleware(wsgi_app):
+        print("middleware started")
+        def middleware(environ, start_response):
+            client = ndb.Client()
+            with client.context():
+                return wsgi_app(environ, start_response)
+        return middleware
 
