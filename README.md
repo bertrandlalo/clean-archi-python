@@ -19,6 +19,9 @@ pip install -e ./src
 docker-compose -f tests/pg-docker-compose.yml up --build
 pytest tests 
 ```
+### (TODO) Start required services:
+1) gcloud secrets file and env variables to set (GOOGLE_APPLICATION_CREDENTIALS, DATASTORE_EMULATOR_HOST)
+2) (in the future): run docker compose file to get required services started (redis, elasticsearch, ?)
 
 ### Launch the app 
 ```
