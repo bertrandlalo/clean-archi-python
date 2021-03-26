@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import List, Optional, Type
 
-from domain.ports.model import User
+from domain.ports.user import User
 from domain.ports.user_repository import (
     AbstractUserRepository,
 )

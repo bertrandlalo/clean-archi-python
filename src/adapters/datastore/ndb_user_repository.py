@@ -2,7 +2,7 @@ from typing import List
 
 from google.cloud import ndb
 
-from domain.ports.model import User
+from domain.ports.user import User
 from domain.ports.user_repository import AbstractUserRepository
 from .user_ndb import UserNDB
 

@@ -1,7 +1,7 @@
 import abc
 from typing import List, Any
 
-from .model import User
+from .user import User
 from .uuid import AbstractUuid
 
 
@@ -13,6 +13,10 @@ class AbstractUserRepository(abc.ABC):
     @abc.abstractmethod
     def get(self, uuid: Any) -> User:
         raise NotImplementedError
+
+    # @abc.abstractmethod
+    # def get_async(self, uuid: Any):
+    #     raise NotImplementedError
 
     @property
     @abc.abstractmethod
