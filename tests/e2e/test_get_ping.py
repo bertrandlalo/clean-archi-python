@@ -1,8 +1,10 @@
-from flask import json
 import pytest
-from entrypoints.server import Config, make_app
+from flask import json
 
-config = Config()
+from entrypoints.config.config_local import LocalConfig
+from entrypoints.server import make_app
+
+config = LocalConfig()
 
 
 @pytest.fixture
@@ -20,4 +22,7 @@ def test_get_ping(client):
 
 def test_get_users(client):
     rv = client.get("/users")
-    assert json.loads(rv.data) == []
+    rv_json = rv.get_json()
+    assert 'users' in rv_json
+    users = rv_json['users']
+    assert type(users) == list
