@@ -1,5 +1,5 @@
-from domain.ports.model import User
-from domain.ports.user_repository import InMemoryUserRepository
+from domain.ports import User
+from domain.ports.user.user_repository import InMemoryUserRepository
 from domain.ports.uuid import CustomUuid
 from domain.use_cases.create_new_user import CreateNewUser
 
