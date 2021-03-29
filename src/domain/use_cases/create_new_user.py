@@ -1,6 +1,7 @@
-from domain.ports.uuid import AbstractUuid
+from domain.ports.user import User, UserStatus
 from domain.ports.user_repository import AbstractUserRepository
-from domain.ports.model import User
+
+from domain.ports.uuid import AbstractUuid
 
 
 class CreateNewUser:
@@ -10,7 +11,10 @@ class CreateNewUser:
         self.user_repository = user_repository
         self.uuid = uuid
 
-    def execute(self, first_name: str, last_name: str):
-        uuid = self.uuid.make()
-        user = User(first_name, last_name, uuid)
+    def execute(self, name: str, status: UserStatus):
+        user = User(
+            name=name,
+            status=status,
+            uuid=self.uuid.make(),
+        )
         self.user_repository.add(user)

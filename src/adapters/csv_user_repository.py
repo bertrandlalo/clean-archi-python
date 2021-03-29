@@ -2,10 +2,9 @@ import csv
 import os
 from typing import List, Optional
 from pathlib import Path
-from domain.ports.model import User
+from domain.ports.user import User
 from domain.ports.user_repository import (
     AbstractUserRepository,
-    InMemoryUserRepository,
 )
 
 
@@ -26,7 +25,11 @@ class CsvUserRepository(AbstractUserRepository):
     def __init__(self, csv_path: Path) -> None:
         self._users = []
         self.csv_path = csv_path
-        csv_columns = ["uuid", "first_name", "last_name"]  # User.__annotations__.keys()
+        csv_columns = [
+            "uuid",
+            "name",
+            "status",
+        ]  # equivalent to User.__annotations__.keys()
         if os.path.isfile(self.csv_path):
             self._users = self._from_csv()
         else:
@@ -39,8 +42,8 @@ class CsvUserRepository(AbstractUserRepository):
             self.csv_path,
             [
                 user.uuid,
-                user.first_name,
-                user.last_name,
+                user.name,
+                user.status,
             ],
         )
 
@@ -50,9 +53,13 @@ class CsvUserRepository(AbstractUserRepository):
             reader = csv.DictReader(f)
             for row in reader:
                 self._users.append(User(**row))
+        return self._users
 
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()
+
+    def get_all(self) -> List[User]:
+        return self._users
 
     @property
     def users(self) -> List[User]:

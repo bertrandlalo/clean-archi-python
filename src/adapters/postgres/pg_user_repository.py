@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy import Table
 from sqlalchemy.engine.base import Engine
 
-from domain.ports.model import User
+from domain.ports.user import User
 from domain.ports.user_repository import AbstractUserRepository
 
 
@@ -21,13 +21,5 @@ class PgUserRepository(AbstractUserRepository):
         insertion = self.table.insert().values(**asdict(user))
         self.connection.execute(insertion)
 
-    def get(self, uuid: str) -> User:
-        s = self.table.select().where(self.table.c.uuid == uuid)
-        rows = self.connection.execute(s)
-        return User(*list(rows)[0])
-
-    @property
-    def users(self) -> List[User]:
-        s = self.table.select()
-        rows = self.connection.execute(s)
-        return [User(*row) for row in rows]
+    def get_all(self) -> List[User]:
+        raise NotImplementedError

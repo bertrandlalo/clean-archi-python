@@ -18,6 +18,6 @@ def client():
         yield client
 
 
-def test_get_ping(client):
-    rv = client.get("/ping")
-    assert json.loads(rv.data) == "pong!"
+def test_post_new_user(client):
+    rv = client.post("/user", data={"name": "patrice", "status": "active"})
+    assert json.loads(rv.data) == "ok!"

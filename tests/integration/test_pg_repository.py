@@ -7,7 +7,7 @@ from adapters.postgres.db import (
     reset_db,
 )
 from adapters.postgres.pg_user_repository import PgUserRepository
-from domain.ports.model import User
+from domain.ports.user import User
 
 
 def prepare_db():
@@ -22,8 +22,8 @@ def prepare_db():
     return engine
 
 
-patrice_user = User(first_name="patrice", last_name="bertrand", uuid="pat_uuid")
-anne_user = User(first_name="anne", last_name="bertrand-lalo", uuid="anne_uuid")
+patrice_user = User(name="patrice", status="active", uuid="pat_uuid")
+anne_user = User(name="anne", status="deleted", uuid="anne_uuid")
 
 
 def test_get_from_pg_repo():
@@ -35,6 +35,3 @@ def test_get_from_pg_repo():
 
     repo.add(patrice_user)
     repo.add(anne_user)
-
-    assert repo.users == [patrice_user, anne_user]
-    assert repo.get(uuid="pat_uuid") == patrice_user

@@ -21,6 +21,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
       - name: Check out repository code 
         uses: actions/checkout@v2
@@ -30,10 +31,5 @@ jobs:
           pip install -r requirements.txt
           pip install ./src
       - name: Test with pytest
-        env: 
-          CI: true
-          POSTGRES_DB: xq-db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: pg-password
         run: |
           pytest tests

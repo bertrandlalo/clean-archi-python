@@ -1,13 +1,12 @@
 from sqlalchemy import Column, MetaData, String, Table
-from sqlalchemy.dialects.postgresql import JSONB
 
 metadata = MetaData()
 
 user_table = Table(
     "users",
     metadata,
-    Column("first_name", String(255)),
-    Column("last_name", String(255)),
+    Column("name", String(255)),
+    Column("status", String(255)),
     Column("uuid", String(255)),
 )
 
