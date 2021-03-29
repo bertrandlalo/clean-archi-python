@@ -8,10 +8,10 @@ def test_create_new_topic():
     uuid_topic, uuid_user = 'topic_uuid', 'topic_user'
     topic_name = "My first topic"
     uuid = CustomUuid()
-    topic_repo = InMemoryTopicRepository()
-    uuid.set_next_uuids([uuid_topic])
+    uuid.set_next_uuid(uuid_topic)
+    topic_repo = InMemoryTopicRepository(uuid_generator=uuid)
     user = User(first_name='patrice', last_name='bertrand', uuid=uuid_user)
-    create_new_topic = CreateNewTopic(topic_repository=topic_repo, uuid_generator=uuid)
+    create_new_topic = CreateNewTopic(topic_repository=topic_repo)
     create_new_topic.execute(topic_name=topic_name, user=user)
 
     created_topic = topic_repo.topics[0]

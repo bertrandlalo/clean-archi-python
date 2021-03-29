@@ -3,6 +3,7 @@ from typing import Any, List
 
 from domain.ports import Topic
 from domain.ports import User
+from domain.ports.uuid import AbstractUuid
 
 
 class AbstractTopicRepository(abc.ABC):
@@ -31,10 +32,13 @@ class AbstractTopicRepository(abc.ABC):
 class InMemoryTopicRepository(AbstractTopicRepository):
     _topics: List[Topic]
 
-    def __init__(self) -> None:
+    def __init__(self, uuid_generator:AbstractUuid) -> None:
+        self.uuid_generator = uuid_generator
         self._topics = []
 
     def add(self, topic: Topic):
+        new_uuid = self.uuid_generator.make()
+        topic.set_id(new_uuid)
         self._topics.append(topic)
 
     def get(self, uuid: str) -> Topic:

@@ -8,8 +8,8 @@ from domain.ports import User
 @dataclass
 class Topic:
     author: User
-    created_date: datetime
     topic_name: str
+    created_date: datetime = datetime.utcnow()
     uuid: Any = None
 
     def set_id(self, id):
