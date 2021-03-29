@@ -1,26 +1,9 @@
-from pathlib import Path
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 # configuration
-from adapters.csv_user_repository import CsvUserRepository
-from domain.ports.user.user_repository import AbstractUserRepository
-from domain.ports.uuid import AbstractUuid, RealUuid
 from domain.use_cases.create_new_user import CreateNewUser
-from entrypoints.config.config_local import LocalConfig
-
-
-class Config:
-    user_repo: AbstractUserRepository
-    uuid_generator: AbstractUuid
-    flask_config: dict
-
-    def __init__(self) -> None:
-        self.user_repo = CsvUserRepository(csv_path=Path("data") / "user_repo.csv", uuid_generator=RealUuid())
-        self.has_middleware = False
-
-
+from entrypoints.config import ndb_config
 
 
 def make_app(config):
@@ -31,6 +14,7 @@ def make_app(config):
 
     # enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
+
     # sanity check route
     @app.route("/ping", methods=["GET"])
     def ping_pong():
@@ -52,7 +36,7 @@ def make_app(config):
 
     return app
 
+
 if __name__ == "__main__":
-    my_config = LocalConfig()
-    app = make_app(my_config)
+    app = make_app(ndb_config)
     app.run()
