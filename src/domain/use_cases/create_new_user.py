@@ -1,6 +1,5 @@
-from domain.ports.uuid import AbstractUuid
-from domain.ports.user_repository import AbstractUserRepository
-from domain.ports.user import User
+from domain.ports import User
+from domain.ports.user.user_repository import AbstractUserRepository
 
 
 class CreateNewUser:

@@ -1,8 +1,8 @@
 import abc
 from typing import List, Any
 
-from .user import User
-from .uuid import AbstractUuid
+from .model import User
+from ..uuid import AbstractUuid
 
 
 class AbstractUserRepository(abc.ABC):

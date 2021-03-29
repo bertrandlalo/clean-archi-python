@@ -7,7 +7,7 @@ from adapters.postgres.db import (
     reset_db,
 )
 from adapters.postgres.pg_user_repository import PgUserRepository
-from domain.ports.model import User
+from domain.ports import User
 
 
 def prepare_db():

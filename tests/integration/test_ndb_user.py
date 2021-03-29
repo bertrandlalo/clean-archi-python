@@ -1,7 +1,7 @@
 from google.cloud import ndb
 
 from adapters.datastore.ndb_user_repository import NDBUserRepository
-from domain.ports.model import User
+from domain.ports import User
 
 user = User(first_name="patrice", last_name="bertrand")
 

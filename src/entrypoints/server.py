@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 # configuration
 from adapters.csv_user_repository import CsvUserRepository
-from domain.ports.user_repository import AbstractUserRepository
+from domain.ports.user.user_repository import AbstractUserRepository
 from domain.ports.uuid import AbstractUuid, RealUuid
 from domain.use_cases.create_new_user import CreateNewUser
 from entrypoints.config.config_local import LocalConfig

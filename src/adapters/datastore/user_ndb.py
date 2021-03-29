@@ -1,6 +1,5 @@
 from google.cloud import ndb
-
-from domain.ports.user import User
+from domain.ports import User
 
 
 class UserNDB(ndb.Model):
