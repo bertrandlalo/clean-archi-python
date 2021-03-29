@@ -28,11 +28,11 @@ class AbstractTopicRepository(abc.ABC):
         raise NotImplementedError
 
 
-class InMemoryUserRepository(AbstractTopicRepository):
+class InMemoryTopicRepository(AbstractTopicRepository):
     _topics: List[Topic]
 
     def __init__(self) -> None:
-        self._topic = []
+        self._topics = []
 
     def add(self, topic: Topic):
         self._topics.append(topic)
