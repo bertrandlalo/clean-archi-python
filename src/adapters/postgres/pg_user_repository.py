@@ -4,8 +4,8 @@ from typing import List
 from sqlalchemy import Table
 from sqlalchemy.engine.base import Engine
 
-from domain.ports.user import User
-from domain.ports.user_repository import AbstractUserRepository
+from domain.ports import User
+from domain.ports.user.user_repository import AbstractUserRepository
 
 
 class PgUserRepository(AbstractUserRepository):

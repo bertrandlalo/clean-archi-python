@@ -1,10 +1,10 @@
 import pytest
 from flask import json
 
-from entrypoints.config.config_local import LocalConfig
+from entrypoints.config import ndb_config
 from entrypoints.server import make_app
 
-config = LocalConfig()
+config = ndb_config
 
 
 @pytest.fixture
