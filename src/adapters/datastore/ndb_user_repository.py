@@ -8,9 +8,6 @@ from .user_ndb import UserNDB
 
 
 class NDBUserRepository(AbstractUserRepository):
-    def __init__(self, project_id: str):
-        self.project_id = project_id
-
     def add(self, user: User):
         ndb_user = UserNDB(
             first_name=user.first_name, last_name=user.last_name

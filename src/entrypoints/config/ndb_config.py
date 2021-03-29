@@ -15,11 +15,12 @@ def wsgi_middleware(wsgi_app):
     return middleware
 
 
-PROJECT_ID = 'clean_archi'
+
 
 ndb_config = Config(
-    user_repo=NDBUserRepository(project_id=PROJECT_ID),
-    topic_repo=NDBTopicRepository(project_id=PROJECT_ID),  # Todo : NDBTopicRepository
+    user_repo=NDBUserRepository(),
+    # topic_repo=NDBTopicRepository(project_id=PROJECT_ID),  # Todo : NDBTopicRepository
+    topic_repo=None,
     has_middleware=True,
     wsgi_middleware=wsgi_middleware,
 )
