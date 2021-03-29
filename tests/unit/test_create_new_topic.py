@@ -18,4 +18,4 @@ def test_create_new_topic():
     assert isinstance(created_topic, Topic), 'wrong type'
     assert created_topic.topic_name == topic_name, 'wrong name'
     assert created_topic.uuid == uuid_topic, "wrong uuid"
-    assert created_topic.author == user, "wrong user"
+    assert created_topic.author_uuid == user.uuid, "wrong user"
