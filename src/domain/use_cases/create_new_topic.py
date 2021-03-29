@@ -10,5 +10,5 @@ class CreateNewTopic:
         self.topic_repository = topic_repository
 
     def execute(self, user: User, topic_name: str):
-        new_base = Topic(topic_name=topic_name, author=user)
+        new_base = Topic(topic_name=topic_name, author_uuid=user.id)
         self.topic_repository.add(new_base)

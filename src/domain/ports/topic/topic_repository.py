@@ -16,7 +16,7 @@ class AbstractTopicRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_all_from_user(self, user: User) -> List[Topic]:
+    def get_all_from_user(self, user_uuid: str) -> List[Topic]:
         raise NotImplementedError
 
     # @abc.abstractmethod
@@ -32,7 +32,7 @@ class AbstractTopicRepository(abc.ABC):
 class InMemoryTopicRepository(AbstractTopicRepository):
     _topics: List[Topic]
 
-    def __init__(self, uuid_generator:AbstractUuid) -> None:
+    def __init__(self, uuid_generator: AbstractUuid) -> None:
         self.uuid_generator = uuid_generator
         self._topics = []
 
@@ -46,8 +46,8 @@ class InMemoryTopicRepository(AbstractTopicRepository):
             if topic.uuid == uuid:
                 return topic
 
-    def get_all_from_user(self, user: User) -> List[Topic]:
-        return [topic for topic in self._topics if user == topic.author]
+    def get_all_from_user(self, user_uuid: User) -> List[Topic]:
+        return [topic for topic in self._topics if user_uuid == topic.author_uuid]
 
     @property
     def topics(self) -> List[Topic]:
