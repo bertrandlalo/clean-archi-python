@@ -25,14 +25,13 @@ class CreateNewTopic:
         topic = Topic(
             uuid=self.uuid.make(),
             topic_text=topic_text,
-            status='active',
-            topic_short=topic_text[:3],
+            status=status,
+            topic_short=topic_short,
             title=title,
             description=description
 
         )
         self.topic_repository.add(topic)
-topic_text: str
 
 
 
