@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from flask import json
 
@@ -18,6 +20,12 @@ def client():
 def test_get_ping(client):
     rv = client.get("/ping")
     assert json.loads(rv.data) == "pong!"
+
+
+def test_get_env_variables():
+    v = os.getenv('DATASTORE_EMULATOR_HOST')
+    assert type(v) == str
+    assert v == 0, '<-- HOST HERE'
 
 
 def test_get_users(client):

@@ -1,9 +1,12 @@
+import binascii
 from typing import List, Any
 
 from google.cloud import ndb
+from google.cloud.ndb import tasklet
 
 from adapters.datastore.topic_ndb import TopicNDB
-from domain.ports import Topic
+from adapters.datastore.user_ndb import UserNDB
+from domain.ports import Topic, User
 from domain.ports.topic.topic_repository import AbstractTopicRepository
 
 
@@ -24,4 +27,29 @@ class NDBTopicRepository(AbstractTopicRepository):
 
     @property
     def topics(self) -> List[Topic]:
-        return TopicNDB.query().fetch()
+        topics_ndb: List[TopicNDB] = TopicNDB.query().fetch()
+        return [top.to_topic() for top in topics_ndb]
+
+    @tasklet
+    def async_get_topic_and_user(self, topic_uuid) -> (Topic, User):
+        topic_ndb: TopicNDB = yield ndb.Key(urlsafe=topic_uuid).get_async()
+        topic = topic_ndb.to_topic()
+        user_key = topic.author_uuid
+        try:
+            user_ndb: UserNDB = yield ndb.Key(urlsafe=user_key).get_async()
+            return topic, user_ndb.to_user()
+        except binascii.Error:
+            user = User(first_name='John', last_name='Doe')
+            return topic, user
+
+    @tasklet
+    def async_get_all_topics_and_authors(self):
+        all_keys = yield TopicNDB.query().fetch_async(keys_only=True)
+        all_keys = [key.urlsafe().decode() for key in all_keys]
+        print(all_keys)
+        futures = []
+        for key in all_keys:
+            futures.append(
+                self.async_get_topic_and_user(topic_uuid=key)
+            )
+        yield futures

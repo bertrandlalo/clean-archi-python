@@ -2,6 +2,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from google.cloud import ndb
+
+
+class String:
+    normal = str
+    ndb_repr = ndb.StringProperty
+
+
 
 @dataclass
 class Topic:
