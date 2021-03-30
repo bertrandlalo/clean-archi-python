@@ -12,7 +12,7 @@ class NDBTopicRepository(AbstractTopicRepository):
     def add(self, topic: Topic):
         topic_ndb = TopicNDB.from_topic(topic)
         topic_ndb.put()
-        topic.set_id(topic_ndb.key.to_legacy_urlsafe('h~'))
+        topic.set_id(topic_ndb.id)
 
     def get(self, uuid: Any) -> Topic:
         topic_ndb: TopicNDB = ndb.Key(urlsafe=uuid).get()
