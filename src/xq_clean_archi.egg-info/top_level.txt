@@ -1,2 +1,4 @@
 adapters
+domain
+entrypoints
 helpers

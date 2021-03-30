@@ -1,5 +1,7 @@
 pytest 
 flask
 flask_cors
+
+# Pg
 sqlalchemy
 psycopg2-binary

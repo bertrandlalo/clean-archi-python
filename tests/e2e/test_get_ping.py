@@ -5,10 +5,12 @@ import pytest
 from entrypoints.server import Config, make_app
 from adapters.csv_user_repository import CsvUserRepository
 
+from src.domain.ports.topic_repository import InMemoryTopicRepository
+
 csv_path = Path("data") / "user_repo"
 user_repo = CsvUserRepository(csv_path)
-config = Config(user_repo)
-
+topic_repo = InMemoryTopicRepository()
+config = Config(user_repo, topic_repo)
 
 @pytest.fixture
 def client():
