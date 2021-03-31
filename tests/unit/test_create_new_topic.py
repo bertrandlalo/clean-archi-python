@@ -1,11 +1,11 @@
-from src.domain.ports.user import User
-from src.domain.ports.topic_repository import InMemoryTopicRepository
-from src.domain.ports.user_repository import InMemoryUserRepository
-from src.domain.use_cases.create_new_topic import CreateNewTopic
-from src.domain.use_cases.create_new_user import CreateNewUser
+from domain.ports.user import User
+from domain.ports.topic_repository import InMemoryTopicRepository
+from domain.ports.user_repository import InMemoryUserRepository
+from domain.use_cases.create_new_topic import CreateNewTopic
+from domain.use_cases.create_new_user import CreateNewUser
 
-from src.domain.ports.topic import Topic
-from src.domain.ports.uuid import CustomUuid
+from domain.ports.topic import Topic
+from domain.ports.uuid import CustomUuid
 
 
 def test_create_new_topic():
