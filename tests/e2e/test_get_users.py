@@ -1,5 +1,4 @@
 import pytest
-from flask import json
 
 from entrypoints.config import ndb_config
 from entrypoints.server import make_app
@@ -19,4 +18,3 @@ def test_get_users(client):
     rv = client.get("/users")
     assert rv.status_code == 200
     assert type(rv.json)
-
