@@ -1,13 +1,14 @@
 import binascii
-from typing import List, Any
+from typing import List, Any, Tuple
+from domain.models.topic import Topic
+from domain.models.user import User
 
 from google.cloud import ndb
 from google.cloud.ndb import tasklet
 
 from adapters.datastore.topic_ndb import TopicNDB
 from adapters.datastore.user_ndb import UserNDB
-from domain.ports import Topic, User
-from domain.ports.topic.topic_repository import AbstractTopicRepository
+from domain.ports.topic_repository import AbstractTopicRepository
 
 
 class NDBTopicRepository(AbstractTopicRepository):
@@ -15,7 +16,7 @@ class NDBTopicRepository(AbstractTopicRepository):
     def add(self, topic: Topic):
         topic_ndb = TopicNDB.from_topic(topic)
         topic_ndb.put()
-        topic.set_id(topic_ndb.id)
+        # topic.set_id(topic_ndb.id)
 
     def get(self, uuid: Any) -> Topic:
         topic_ndb: TopicNDB = ndb.Key(urlsafe=uuid).get()
@@ -30,8 +31,9 @@ class NDBTopicRepository(AbstractTopicRepository):
         topics_ndb: List[TopicNDB] = TopicNDB.query().fetch()
         return [top.to_topic() for top in topics_ndb]
 
+    # ?? Should be in port ! 
     @tasklet
-    def async_get_topic_and_user(self, topic_uuid) -> (Topic, User):
+    def async_get_topic_and_user(self, topic_uuid) -> Tuple[Topic, User]:
         topic_ndb: TopicNDB = yield ndb.Key(urlsafe=topic_uuid).get_async()
         topic = topic_ndb.to_topic()
         user_key = topic.author_uuid
@@ -42,6 +44,7 @@ class NDBTopicRepository(AbstractTopicRepository):
             user = User(first_name='John', last_name='Doe')
             return topic, user
 
+    # ?? Should be in port ! 
     @tasklet
     def async_get_all_topics_and_authors(self):
         all_keys = yield TopicNDB.query().fetch_async(keys_only=True)

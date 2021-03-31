@@ -4,8 +4,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-from domain.ports import Topic
-from domain.ports.topic.topic_repository import AbstractTopicRepository
+from domain.models.topic import Topic
+from domain.ports.topic_repository import AbstractTopicRepository
 from domain.ports.uuid import AbstractUuid
 
 
@@ -55,10 +55,13 @@ class CsvTopicRepository(AbstractTopicRepository):
             for row in reader:
                 self._topics.append(
                     Topic(
-                        uuid=row.get('uuid'),
-                        author_uuid=row.get('author_uuid'),
-                        topic_name=row.get('topic_name'),
-                        created_date=datetime.utcfromtimestamp(float(row.get('created_date')))
+                        **row
+                        # uuid=row.get("uuid"),
+                        # author_uuid=row.get("author_uuid"),
+                        # topic_name=row.get("topic_name"),
+                        # created_date=datetime.utcfromtimestamp(
+                        #     float(row.get("created_date"))
+                        # ),
                     )
                 )
 

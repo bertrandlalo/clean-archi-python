@@ -2,19 +2,16 @@ from typing import List
 
 from google.cloud import ndb
 
-from domain.ports import User
-from domain.ports.user.user_repository import AbstractUserRepository
+from domain.models.user import User
+from domain.ports.user_repository import AbstractUserRepository
 from .user_ndb import UserNDB
 
 
 class NDBUserRepository(AbstractUserRepository):
-
     def add(self, user: User):
-        ndb_user = UserNDB(
-            name=user.name, status=user.status
-        )
+        ndb_user = UserNDB(name=user.name, status=user.status)
         ndb_user.put()
-        user.set_id(ndb_user.id)
+        # user.set_id(ndb_user.id)
 
     def get(self, uuid: str) -> User:
         user: UserNDB = ndb.Key(urlsafe=uuid).get()

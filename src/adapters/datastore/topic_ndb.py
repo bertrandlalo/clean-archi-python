@@ -1,23 +1,30 @@
 from google.cloud import ndb
 
-from domain.ports import Topic
+from domain.models.topic import Topic
 
 
 class TopicNDB(ndb.Model):
+    uuid = ndb.StringProperty()
     author_uuid = ndb.StringProperty()
     topic_name = ndb.StringProperty()
     created_date = ndb.DateProperty(auto_now_add=True)
 
     @staticmethod
-    def from_topic(topic: Topic) -> 'TopicNDB':
-        return TopicNDB(author_uuid=topic.author_uuid, topic_name=topic.topic_name, created_date=topic.created_date)
+    def from_topic(topic: Topic) -> "TopicNDB":
+        return TopicNDB(
+            author_uuid=topic.author_uuid,
+            topic_name=topic.topic_name,
+            created_date=topic.created_date,
+        )
 
     def to_topic(self) -> Topic:
-        return Topic(author_uuid=self.author_uuid,
-                     topic_name=self.topic_name,
-                     created_date=self.created_date,
-                     uuid=self.id)
+        return Topic(
+            author_uuid=self.author_uuid,
+            topic_name=self.topic_name,
+            created_date=self.created_date,
+            uuid=self.uuid,
+        )
 
     @property
     def id(self):
-        return self.key.to_legacy_urlsafe('h~').decode()
+        return self.key.to_legacy_urlsafe("h~").decode()

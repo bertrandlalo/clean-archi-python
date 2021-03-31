@@ -2,7 +2,7 @@ import csv
 from pathlib import Path
 
 from adapters.csv_user_repository import CsvUserRepository
-from domain.ports import User
+from domain.models.user import User
 from domain.ports.uuid import CustomUuid
 from helpers.csv import reset_file_from_path
 
