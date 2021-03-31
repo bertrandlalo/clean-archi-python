@@ -1,4 +1,5 @@
 pytest
+pytest-coverage
 flask
 flask_cors
 sqlalchemy
