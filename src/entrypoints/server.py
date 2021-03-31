@@ -7,6 +7,7 @@ from entrypoints.config import ndb_config
 
 
 def make_app(config):
+    create_new_user, get_all_users = config.get_use_cases()
     # instantiate the app
     app = Flask(__name__)
     if config.has_middleware:
@@ -17,22 +18,18 @@ def make_app(config):
 
     # sanity check route
     @app.route("/ping", methods=["GET"])
-    def ping_pong():
+    def on_get_ping():
         return jsonify("pong!")
 
-    # sanity check route
-    @app.route("/users", methods=["GET"])
-    def get_all_users():
-        return jsonify(users=config.user_repo.users)
-
     @app.route("/user", methods=["POST"])
-    def add_new_user():
-        # config.user_repo.add()
-        json_data = request.get_json()
-        print(json_data)
+    def on_post_new_user():
+        create_new_user.execute(**request.form)
+        return jsonify("ok!")
 
-        CreateNewUser(user_repository=config.user_repo)
-        return 'ok', 200
+    @app.route("/users", methods=["GET"])
+    def on_get_all_users():
+        users = get_all_users.execute()
+        return jsonify(users)
 
     return app
 

@@ -14,13 +14,13 @@ class AbstractUserRepository(abc.ABC):
     def get(self, uuid: Any) -> User:
         raise NotImplementedError
 
-    # @abc.abstractmethod
-    # def get_async(self, uuid: Any):
-    #     raise NotImplementedError
-
     @property
     @abc.abstractmethod
     def users(self) -> List[User]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_all(self) -> List[User]:
         raise NotImplementedError
 
 
@@ -35,9 +35,14 @@ class InMemoryUserRepository(AbstractUserRepository):
         user.set_id(self.uuid_generator.make())
         self._users.append(user)
 
-    def get(self, uuid: str) -> User:
-        raise NotImplementedError
+    def get_all(self) -> List[User]:
+        return self._users
 
+    # For test purposes only
     @property
     def users(self) -> List[User]:
         return self._users
+
+    @users.setter
+    def users(self, users: List[User]):
+        self._users = users
