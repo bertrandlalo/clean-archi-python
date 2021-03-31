@@ -1,4 +1,4 @@
-from collections import Callable
+from collections.abc import Callable
 from dataclasses import dataclass
 
 from domain.ports.topic.topic_repository import AbstractTopicRepository
