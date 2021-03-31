@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/Nathanmalnoury/clean-archi-python/branch/develop/graph/badge.svg?token=XAFLRMN4OG)](https://codecov.io/gh/Nathanmalnoury/clean-archi-python)
 # Clean-Archi-Python 🇬🇧
 
 (Version française [ici](README.fr.md).)
