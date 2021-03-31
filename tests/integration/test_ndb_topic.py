@@ -55,6 +55,6 @@ def test_can_get_all_topics_and_authors():
         my_topic = Topic(topic_name='ant', author_uuid=my_user.id)
         repo_topic.add(my_topic)
 
-        async_operation = repo_topic.async_get_all_topics_and_authors()
+        async_operation = repo_topic.async_get_all_topics_and_authors(user_repo=repo_user)
         res = async_operation.result()
         print(res)
