@@ -23,3 +23,7 @@ class NDBUserRepository(AbstractUserRepository):
     def get_all(self) -> List[User]:
         ndb_user_list = UserNDB.query().fetch()
         return [ndb_user.to_user() for ndb_user in ndb_user_list]
+
+    def new_untested_method(self):
+        print('hey there')
+        return True
