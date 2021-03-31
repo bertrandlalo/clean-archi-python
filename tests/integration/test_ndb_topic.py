@@ -15,10 +15,10 @@ def test_can_add_topic():
     client = ndb.Client()
     with client.context():
         ndb_topic_repository = NDBTopicRepository()
-        number_users_before_add = len(ndb_topic_repository.topics)
+        number_users_before_add = len(ndb_topic_repository.get_all())
         ndb_topic_repository.add(topic)
         sleep(0.5)  # store emulator needs some time
-        assert len(ndb_topic_repository.topics) == number_users_before_add + 1
+        assert len(ndb_topic_repository.get_all()) == number_users_before_add + 1
 
 
 def test_can_get_topic():
@@ -36,7 +36,7 @@ def test_can_get_all_topics():
     client = ndb.Client()
     with client.context():
         topic_repo = NDBTopicRepository()
-        all_topics = topic_repo.topics
+        all_topics = topic_repo.get_all()
         assert type(all_topics) == list
         assert len(all_topics) > 0
         for topic in all_topics:
@@ -49,7 +49,7 @@ def test_can_get_all_topics_and_authors():
         repo_topic = NDBTopicRepository()
         repo_user = NDBUserRepository()
 
-        my_user = User(first_name='nat', last_name='mal')
+        my_user = User(name='nathan malnoury', status='active')
         repo_user.add(my_user)
 
         my_topic = Topic(topic_name='ant', author_uuid=my_user.id)
