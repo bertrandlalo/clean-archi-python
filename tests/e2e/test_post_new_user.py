@@ -24,4 +24,3 @@ def client():
 def test_post_new_user(client):
     rv = client.post("/user", data={"name": "patrice", "status": "active"})
     assert json.loads(rv.data) == "ok!"
-
