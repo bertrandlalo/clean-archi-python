@@ -1,5 +1,6 @@
-from domain.ports.topic import Topic, TopicStatus
-from domain.ports.topic_repository import AbstractTopicRepository
+from src.domain.ports.user import User
+from src.domain.ports.topic import Topic, TopicStatus
+from src.domain.ports.topic_repository import AbstractTopicRepository
 
 # from domain.ports.uuid import AbstractUuid
 from src.domain.ports.uuid import AbstractUuid
@@ -20,7 +21,8 @@ class CreateNewTopic:
                 status: TopicStatus,
                 topic_short: str,
                 title: str,
-                description: str):
+                description: str,
+                author: User):
 
         topic = Topic(
             uuid=self.uuid.make(),
@@ -28,8 +30,8 @@ class CreateNewTopic:
             status=status,
             topic_short=topic_short,
             title=title,
-            description=description
-
+            description=description,
+            author=author
         )
         self.topic_repository.add(topic)
 

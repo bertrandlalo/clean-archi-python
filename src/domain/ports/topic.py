@@ -14,4 +14,4 @@ class Topic:
     title: str
     description: str
     status: TopicStatus
-    # author: User
+    author: User
