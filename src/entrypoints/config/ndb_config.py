@@ -6,8 +6,6 @@ from entrypoints.config.model import Config
 
 
 def wsgi_middleware(wsgi_app):
-    print("middleware started")
-
     def middleware(environ, start_response):
         client = ndb.Client()
         with client.context():

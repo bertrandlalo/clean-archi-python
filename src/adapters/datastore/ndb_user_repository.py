@@ -8,9 +8,10 @@ from .user_ndb import UserNDB
 
 
 class NDBUserRepository(AbstractUserRepository):
+
     def add(self, user: User):
         ndb_user = UserNDB(
-            first_name=user.first_name, last_name=user.last_name
+            name=user.name, status=user.status
         )
         ndb_user.put()
         user.set_id(ndb_user.id)
@@ -19,7 +20,6 @@ class NDBUserRepository(AbstractUserRepository):
         user: UserNDB = ndb.Key(urlsafe=uuid).get()
         return user.to_user()
 
-    @property
-    def users(self) -> List[User]:
+    def get_all(self) -> List[User]:
         ndb_user_list = UserNDB.query().fetch()
         return [ndb_user.to_user() for ndb_user in ndb_user_list]

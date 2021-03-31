@@ -37,7 +37,7 @@ class CsvTopicRepository(AbstractTopicRepository):
     def add(self, topic: Topic):
         topic_id = self.uuid_generator.make()
         topic.set_id(topic_id)
-        self.topics.append(topic)
+        self._topics.append(topic)
         writerow(
             self.csv_path,
             [
@@ -63,11 +63,10 @@ class CsvTopicRepository(AbstractTopicRepository):
                 )
 
     def get(self, uuid: str) -> Optional[Topic]:
-        return [topic for topic in self.topics if topic.uuid == uuid].pop()
+        return [topic for topic in self._topics if topic.uuid == uuid].pop()
 
     def get_all_from_user(self, user_uuid: str) -> List[Topic]:
-        return [topic for topic in self.topics if topic.author_uuid == user_uuid]
+        return [topic for topic in self._topics if topic.author_uuid == user_uuid]
 
-    @property
-    def topics(self) -> List[Topic]:
+    def get_all(self) -> List[Topic]:
         return self._topics

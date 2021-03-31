@@ -25,8 +25,8 @@ class NDBTopicRepository(AbstractTopicRepository):
         list_topic_ndb: List[TopicNDB] = TopicNDB.query(TopicNDB.author_uuid == user_uuid).fetch()
         return [topic_ndb.to_topic() for topic_ndb in list_topic_ndb]
 
-    @property
-    def topics(self) -> List[Topic]:
+
+    def get_all(self) -> List[Topic]:
         topics_ndb: List[TopicNDB] = TopicNDB.query().fetch()
         return [top.to_topic() for top in topics_ndb]
 

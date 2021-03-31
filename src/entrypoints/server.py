@@ -7,7 +7,7 @@ from entrypoints.config import ndb_config
 
 
 def make_app(config):
-    create_new_user, get_all_users = config.get_use_cases()
+    create_new_user, get_all_users, create_new_topic = config.get_use_cases()
     # instantiate the app
     app = Flask(__name__)
     if config.has_middleware:

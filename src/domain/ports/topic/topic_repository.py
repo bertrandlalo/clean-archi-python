@@ -19,13 +19,8 @@ class AbstractTopicRepository(abc.ABC):
     def get_all_from_user(self, user_uuid: str) -> List[Topic]:
         raise NotImplementedError
 
-    # @abc.abstractmethod
-    # def get_async(self, uuid: Any):
-    #     raise NotImplementedError
-
-    @property
     @abc.abstractmethod
-    def topics(self) -> List[Topic]:
+    def get_all(self) -> List[Topic]:
         raise NotImplementedError
 
 
@@ -49,6 +44,5 @@ class InMemoryTopicRepository(AbstractTopicRepository):
     def get_all_from_user(self, user_uuid: User) -> List[Topic]:
         return [topic for topic in self._topics if user_uuid == topic.author_uuid]
 
-    @property
-    def topics(self) -> List[Topic]:
+    def get_all(self) -> List[Topic]:
         return self._topics

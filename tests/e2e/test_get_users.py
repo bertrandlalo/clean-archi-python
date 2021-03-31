@@ -1,21 +1,10 @@
-from pathlib import Path
-from flask import json
 import pytest
+from flask import json
 
-from adapters.csv_user_repository import CsvUserRepository
-from entrypoints.server import Config, make_app
-from helpers.csv import reset_file_from_path
+from entrypoints.config import ndb_config
+from entrypoints.server import make_app
 
-from tests.utils.write_csv_file import write_csv_file
-
-csv_path = Path("data") / "user_repo"
-write_csv_file(
-    csv_path,
-    header=["uuid", "name", "status"],
-    rows=[["pat_uuid", "patrice", "deleted"]],
-)
-user_repo = CsvUserRepository(csv_path)
-config = Config(user_repo)
+config = ndb_config
 
 
 @pytest.fixture
@@ -28,6 +17,6 @@ def client():
 
 def test_get_users(client):
     rv = client.get("/users")
-    assert json.loads(rv.data) == [
-        {"name": "patrice", "status": "deleted", "uuid": "pat_uuid"}
-    ]
+    assert rv.status_code == 200
+    assert type(rv.json)
+

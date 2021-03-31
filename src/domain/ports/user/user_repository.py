@@ -14,11 +14,6 @@ class AbstractUserRepository(abc.ABC):
     def get(self, uuid: Any) -> User:
         raise NotImplementedError
 
-    @property
-    @abc.abstractmethod
-    def users(self) -> List[User]:
-        raise NotImplementedError
-
     @abc.abstractmethod
     def get_all(self) -> List[User]:
         raise NotImplementedError
@@ -37,6 +32,11 @@ class InMemoryUserRepository(AbstractUserRepository):
 
     def get_all(self) -> List[User]:
         return self._users
+
+    def get(self, uuid: Any) -> User:
+        for user in self._users:
+            if user.uuid == uuid:
+                return user
 
     # For test purposes only
     @property

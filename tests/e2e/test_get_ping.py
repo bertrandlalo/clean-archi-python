@@ -23,6 +23,4 @@ def test_get_ping(client):
 def test_get_users(client):
     rv = client.get("/users")
     rv_json = rv.get_json()
-    assert 'users' in rv_json
-    users = rv_json['users']
-    assert type(users) == list
+    assert type(rv_json) == list

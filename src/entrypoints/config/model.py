@@ -5,7 +5,7 @@ from domain.ports.topic.topic_repository import AbstractTopicRepository
 from domain.ports.user.user_repository import AbstractUserRepository
 from domain.use_cases.create_new_topic import CreateNewTopic
 from domain.use_cases.create_new_user import CreateNewUser
-from domain.use_cases.list_users import ListUsers
+from domain.use_cases.get_all_users import GetAllUsers
 
 
 def wsgi_do_nothing_middleware(wsgi_app):
@@ -25,6 +25,6 @@ class Config:
     def get_use_cases(self):
         return [
             CreateNewUser(user_repository=self.user_repo),
-            ListUsers(user_repository=self.user_repo),
+            GetAllUsers(user_repository=self.user_repo),
             CreateNewTopic(topic_repository=self.topic_repo)
         ]
