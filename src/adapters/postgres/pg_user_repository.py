@@ -26,8 +26,7 @@ class PgUserRepository(AbstractUserRepository):
         rows = self.connection.execute(s)
         return User(*list(rows)[0])
 
-    @property
-    def users(self) -> List[User]:
+    def get_all(self) -> List[User]:
         s = self.table.select()
         rows = self.connection.execute(s)
         return [User(*row) for row in rows]
