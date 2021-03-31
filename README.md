@@ -47,4 +47,3 @@ If you open the src code, you'll notice the following organization :
   - ./server.py : the script to launch the application.
   - ./config.py : preparation of the application instances. 
   The entrypoint is tested in tests/e2e. 
-

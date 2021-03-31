@@ -1,11 +1,13 @@
 import csv
 import os
-from typing import List, Optional
 from pathlib import Path
-from domain.ports.user import User
-from domain.ports.user_repository import (
+from typing import List, Optional
+
+from domain.ports import User
+from domain.ports.user.user_repository import (
     AbstractUserRepository,
 )
+from domain.ports.uuid import AbstractUuid
 
 
 def mkdir_if_relevant(path: Path):
@@ -22,9 +24,10 @@ def writerow(csv_path: Path, row: List):
 class CsvUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self, csv_path: Path) -> None:
+    def __init__(self, csv_path: Path, uuid_generator: AbstractUuid) -> None:
         self._users = []
         self.csv_path = csv_path
+        self.uuid_generator = uuid_generator
         csv_columns = [
             "uuid",
             "name",
@@ -38,22 +41,25 @@ class CsvUserRepository(AbstractUserRepository):
 
     def add(self, user: User):
         self._users.append(user)
+        id = self.uuid_generator.make()
+
         writerow(
             self.csv_path,
             [
-                user.uuid,
+                id,
                 user.name,
                 user.status,
             ],
         )
+        user.set_id(id)
 
     def _from_csv(self) -> List[User]:
-        self._users = []
+        loaded_users = []
         with self.csv_path.open("r") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                self._users.append(User(**row))
-        return self._users
+                loaded_users.append(User(**row))
+        return loaded_users
 
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()
