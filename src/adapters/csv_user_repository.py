@@ -1,7 +1,7 @@
 import csv
 import os
 from pathlib import Path
-from typing import List, Optional, Type
+from typing import List, Optional
 
 from domain.ports import User
 from domain.ports.user.user_repository import (
