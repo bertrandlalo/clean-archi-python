@@ -1,5 +1,4 @@
 from datetime import datetime
-from time import sleep
 
 from google.cloud import ndb
 
@@ -17,7 +16,6 @@ def test_can_add_topic():
         ndb_topic_repository = NDBTopicRepository()
         number_users_before_add = len(ndb_topic_repository.get_all())
         ndb_topic_repository.add(topic)
-        sleep(0.5)  # store emulator needs some time
         assert len(ndb_topic_repository.get_all()) == number_users_before_add + 1
 
 
