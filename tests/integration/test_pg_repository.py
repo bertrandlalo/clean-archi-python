@@ -7,11 +7,10 @@ from adapters.postgres.db import (
     reset_db,
 )
 from adapters.postgres.pg_user_repository import PgUserRepository
-from domain.ports.user import User
+from domain.ports import User
 
 
 def prepare_db():
-    print("test_pg_url: ", test_pg_url)
     # test_pg_url = "postgresql://postgres:pg-password@postgres:5432/xq-db"
     engine = create_engine(
         test_pg_url,

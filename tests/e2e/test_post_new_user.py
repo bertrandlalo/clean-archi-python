@@ -1,13 +1,10 @@
-from pathlib import Path
-from flask import json
 import pytest
+from flask import json
 
-from entrypoints.server import Config, make_app
-from adapters.csv_user_repository import CsvUserRepository
+from entrypoints.config import ndb_config
+from entrypoints.server import make_app
 
-csv_path = Path("data") / "user_repo"
-user_repo = CsvUserRepository(csv_path)
-config = Config(user_repo)
+config = ndb_config
 
 
 @pytest.fixture

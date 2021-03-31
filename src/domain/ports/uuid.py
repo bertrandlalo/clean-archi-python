@@ -1,5 +1,5 @@
 import uuid as uuid_lib
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 from typing import List
 
 
@@ -8,8 +8,8 @@ def uuid4() -> str:
 
 
 class AbstractUuid(ABC):
-    @abstractclassmethod
-    def make() -> str:
+    @abstractmethod
+    def make(self) -> str:
         raise NotImplementedError
 
 
