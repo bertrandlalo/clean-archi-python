@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  datastore:
+    image: google/cloud-sdk:latest
+    environment:
+      CLOUDSDK_CORE_PROJECT: clean-archi
+    command: gcloud beta emulators datastore start --host-port=0.0.0.0:8001 --data-dir=/opt/data
+    volumes:
+      - ./docker-data/ndb:/opt/data
+    ports:
+      - 8001:8001

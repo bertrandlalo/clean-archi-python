@@ -14,6 +14,15 @@ pip install -r requirements.txt
 pip install -e ./src
 ```
 
+If planning on using NDB:
+1. Make sure that, when run, python can access 'GOOGLE_APPLICATION_CREDENTIALS' environment variable, and that this variable is the path to your credentials file.
+2. Install ndb emulator or use service 'datastore' of ndb-docker-compose: 
+   ```shell
+    docker-compose -f tests/ndb-docker-compose.yml up --build
+   ```
+3. Set another env variable accessible at runtime : `DATASTORE_EMULATOR_HOST`. It must point to the address of the emulator. If using docker-compose it is `localhost:8001`
+
+
 ### Launch the tests
 ```
 docker-compose -f tests/pg-docker-compose.yml up --build
