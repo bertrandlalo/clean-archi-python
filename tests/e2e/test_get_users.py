@@ -6,6 +6,7 @@ from adapters.csv_user_repository import CsvUserRepository
 from entrypoints.server import Config, make_app
 from helpers.csv import reset_file_from_path
 
+from src.domain.ports.topic_repository import InMemoryTopicRepository
 from tests.utils.write_csv_file import write_csv_file
 
 csv_path = Path("data") / "user_repo"
@@ -15,7 +16,8 @@ write_csv_file(
     rows=[["pat_uuid", "patrice", "deleted"]],
 )
 user_repo = CsvUserRepository(csv_path)
-config = Config(user_repo)
+topic_repo = InMemoryTopicRepository()
+config = Config(user_repo, topic_repo)
 
 
 @pytest.fixture

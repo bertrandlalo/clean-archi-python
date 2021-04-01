@@ -21,6 +21,15 @@ def client():
         yield client
 
 
-def test_post_new_user(client):
-    rv = client.post("/user", data={"name": "patrice", "status": "active"})
+def test_post_new_topic(client):
+    rv = client.post(
+        "/topic",
+        data={
+            "topic_text": "Antarctique",
+            "status": "active",
+            "topic_short": "ANT",
+            "title": "Antarctique initiation",
+            "description": "L'Antarctique, parfois appelé « le Continent Austral » ou « le Continent Blanc », est le continent le plus méridional de la Terre. Situé autour du pôle Sud, il est entouré des océans Atlantique, Indien et Pacifique et des mers de Ross et de Weddel",
+        },
+    )
     assert json.loads(rv.data) == "ok!"

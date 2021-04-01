@@ -5,6 +5,16 @@ adapters/ndb_user_repository.py
 adapters/postgres/__init__.py
 adapters/postgres/db.py
 adapters/postgres/pg_user_repository.py
+domain/__init__.py
+domain/ports/__init__.py
+domain/ports/user.py
+domain/ports/user_repository.py
+domain/ports/uuid.py
+domain/use_cases/__init__.py
+domain/use_cases/create_new_user.py
+domain/use_cases/get_all_users.py
+entrypoints/__init__.py
+entrypoints/server.py
 helpers/__init__.py
 helpers/csv.py
 xq_clean_archi.egg-info/PKG-INFO
