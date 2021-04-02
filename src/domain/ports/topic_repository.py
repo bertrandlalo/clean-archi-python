@@ -1,8 +1,8 @@
 import abc
-from typing import Any, List
+from typing import Any, List, Optional
 
-from domain.ports import Topic
-from domain.ports import User
+from domain.models.topic import Topic
+from domain.models.user import User
 from domain.ports.uuid import AbstractUuid
 
 
@@ -27,16 +27,13 @@ class AbstractTopicRepository(abc.ABC):
 class InMemoryTopicRepository(AbstractTopicRepository):
     _topics: List[Topic]
 
-    def __init__(self, uuid_generator: AbstractUuid) -> None:
-        self.uuid_generator = uuid_generator
+    def __init__(self) -> None:
         self._topics = []
 
     def add(self, topic: Topic):
-        new_uuid = self.uuid_generator.make()
-        topic.set_id(new_uuid)
         self._topics.append(topic)
 
-    def get(self, uuid: str) -> Topic:
+    def get(self, uuid: str) -> Optional[Topic]:
         for topic in self._topics:
             if topic.uuid == uuid:
                 return topic
@@ -46,3 +43,12 @@ class InMemoryTopicRepository(AbstractTopicRepository):
 
     def get_all(self) -> List[Topic]:
         return self._topics
+
+    # For test purposes only
+    @property
+    def topics(self) -> List[Topic]:
+        return self._topics
+
+    @topics.setter
+    def topics(self, topics: List[Topic]):
+        self._topics = topics

@@ -24,10 +24,9 @@ def writerow(csv_path: Path, row: List):
 class CsvUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self, csv_path: Path, uuid_generator: AbstractUuid) -> None:
+    def __init__(self, csv_path: Path) -> None:
         self._users = []
         self.csv_path = csv_path
-        self.uuid_generator = uuid_generator
         csv_columns = [
             "uuid",
             "name",
