@@ -1,17 +1,15 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-# configuration
-from domain.use_cases.create_new_user import CreateNewUser
-from entrypoints.config import ndb_config
+from entrypoints.config.config import Config
 
 
-def make_app(config):
+def make_app(config: Config):
     create_new_user, get_all_users, create_new_topic = config.get_use_cases()
     # instantiate the app
     app = Flask(__name__)
-    if config.has_middleware:
-        app.wsgi_app = config.wsgi_middleware(wsgi_app=app.wsgi_app)
+    # if config.has_middleware:
+    #     app.wsgi_app = config.wsgi_middleware(wsgi_app=app.wsgi_app)
 
     # enable CORS
     CORS(app, resources={r"/*": {"origins": "*"}})

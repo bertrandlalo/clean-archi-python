@@ -1,13 +1,12 @@
 import csv
 import os
 from pathlib import Path
-from typing import List, Optional, Type
+from typing import List, Optional
 
-from domain.ports import User
-from domain.ports.user.user_repository import (
+from domain.models.user import User
+from domain.ports.user_repository import (
     AbstractUserRepository,
 )
-from domain.ports.uuid import AbstractUuid
 
 
 def mkdir_if_relevant(path: Path):
@@ -40,17 +39,15 @@ class CsvUserRepository(AbstractUserRepository):
 
     def add(self, user: User):
         self._users.append(user)
-        id = self.uuid_generator.make()
 
         writerow(
             self.csv_path,
             [
-                id,
+                user.uuid,
                 user.name,
                 user.status,
             ],
         )
-        user.set_id(id)
 
     def _from_csv(self) -> List[User]:
         loaded_users = []

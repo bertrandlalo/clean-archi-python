@@ -4,9 +4,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-from domain.ports import Topic
-from domain.ports.topic.topic_repository import AbstractTopicRepository
-from domain.ports.uuid import AbstractUuid
+from domain.models.topic import Topic
+from domain.ports.topic_repository import AbstractTopicRepository
 
 
 def mkdir_if_relevant(path: Path):
@@ -23,10 +22,9 @@ def writerow(csv_path: Path, row: List):
 class CsvTopicRepository(AbstractTopicRepository):
     _topics: List[Topic]
 
-    def __init__(self, csv_path: Path, uuid_generator: AbstractUuid) -> None:
+    def __init__(self, csv_path: Path) -> None:
         self._topics = []
         self.csv_path = csv_path
-        self.uuid_generator = uuid_generator
         csv_columns = ["uuid", "author_uuid", "topic_name", "created_date"]
         if os.path.isfile(self.csv_path):
             self._from_csv()
@@ -35,8 +33,6 @@ class CsvTopicRepository(AbstractTopicRepository):
             writerow(self.csv_path, csv_columns)
 
     def add(self, topic: Topic):
-        topic_id = self.uuid_generator.make()
-        topic.set_id(topic_id)
         self._topics.append(topic)
         writerow(
             self.csv_path,
@@ -44,7 +40,7 @@ class CsvTopicRepository(AbstractTopicRepository):
                 topic.uuid,
                 topic.author_uuid,
                 topic.topic_name,
-                topic.created_date.timestamp(),
+                topic.created_date,
             ],
         )
 
@@ -53,14 +49,7 @@ class CsvTopicRepository(AbstractTopicRepository):
         with self.csv_path.open("r") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                self._topics.append(
-                    Topic(
-                        uuid=row.get('uuid'),
-                        author_uuid=row.get('author_uuid'),
-                        topic_name=row.get('topic_name'),
-                        created_date=datetime.utcfromtimestamp(float(row.get('created_date')))
-                    )
-                )
+                self._topics.append(Topic(**row))
 
     def get(self, uuid: str) -> Optional[Topic]:
         return [topic for topic in self._topics if topic.uuid == uuid].pop()
