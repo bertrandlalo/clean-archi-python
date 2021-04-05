@@ -6,7 +6,6 @@ from adapters.csv_topic_repository import CsvTopicRepository
 from adapters.csv_user_repository import CsvUserRepository
 from entrypoints.server import make_app
 from entrypoints.config.config import Config
-from helpers.csv import reset_file_from_path
 
 from tests.utils.write_csv_file import write_csv_file
 

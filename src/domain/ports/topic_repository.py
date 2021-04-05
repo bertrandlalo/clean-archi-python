@@ -3,7 +3,6 @@ from typing import Any, List, Optional
 
 from domain.models.topic import Topic
 from domain.models.user import User
-from domain.ports.uuid import AbstractUuid
 
 
 class AbstractTopicRepository(abc.ABC):

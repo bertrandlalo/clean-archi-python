@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, Optional
+from typing import Literal
 
 UserStatus = Literal["active", "contact", "deleted", "invited"]
 
@@ -11,9 +11,3 @@ class User:
     name: str
     status: UserStatus
     uuid: str
-
-    # def set_id(self, id):
-    #     self.uuid = id
-    # @property
-    # def id(self):
-    #     return self.uuid

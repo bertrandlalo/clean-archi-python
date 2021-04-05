@@ -1,5 +1,8 @@
+from pathlib import Path
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from adapters.csv_topic_repository import CsvTopicRepository
+from adapters.csv_user_repository import CsvUserRepository
 
 from entrypoints.config.config import Config
 
@@ -33,5 +36,9 @@ def make_app(config: Config):
 
 
 if __name__ == "__main__":
-    app = make_app(ndb_config)
+    config = Config(
+        user_repository=CsvUserRepository(csv_path=Path("data") / "user_repo"),
+        topic_repository=CsvTopicRepository(csv_path=Path("data") / "topic_repo"),
+    )
+    app = make_app(config)
     app.run()
