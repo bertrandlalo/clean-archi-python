@@ -1,69 +1,34 @@
 name: Python package
 
-on: [ push ]
+on: [push]
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Start Emulator
-        run: docker run -p 7777:7777 google/cloud-sdk gcloud beta emulators datastore start --project=pname --host-port 0.0.0.0:7777 --no-store-on-disk
-
   build:
-    needs: setup
-    environment: GCP
-
     runs-on: ubuntu-latest
     container: python:3.9
-#    services:
-#      datastore:
-#        image: ./gcp_emulator
-##        env:
-##          DATASTORE_PROJECT_ID: ew3-beta-experquiz-com
-##          DATASTORE_LISTEN_ADDRESS: 0.0.0.0:8081
-#        ports:
-#          - 8081:8081
-#        volumes:
-#          - /opt/data:/opt/data
-
-#      postgres:
-#        image: postgres
-#        env:
-#          POSTGRES_DB: xq-db
-#          POSTGRES_USER: postgres
-#          POSTGRES_PASSWORD: pg-password
-#        ports:
-#          - 5432:5432
-#        # Health checks to wait until postgres has started
-#        options: >-
-#          --health-cmd pg_isready
-#          --health-interval 10s
-#          --health-timeout 5s
-#          --health-retries 5
-
-    env:
-      GOOGLE_APPLICATION_CREDENTIALS: key.json
-      CI: true
-      POSTGRES_DB: xq-db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pg-password
-      DATASTORE_EMULATOR_HOST: localhost:8081
-
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: xq-db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pg-password
+        ports:
+          - 5432:5432
+        # Health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
-      - name: Check out repository code
+      - name: Check out repository code 
         uses: actions/checkout@v2
-
-      - name: Create Google credentials file from secrets
-        run: echo "${{secrets.SERVICE_ACCOUNT}}" | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS
-
-      - name: Health Check Datastore Emulator
-        run: curl $DATASTORE_EMULATOR_HOST
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install ./src
-
-      - name: Test with pytest
-        run: pytest tests
+      - name: Tests with pytest
+        run: |
+          pytest tests
