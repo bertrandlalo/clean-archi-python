@@ -1,11 +1,16 @@
 import abc
-from typing import List
-from domain.ports.user import User
+from typing import List, Any, Optional
+
+from domain.models.user import User
 
 
 class AbstractUserRepository(abc.ABC):
     @abc.abstractmethod
     def add(self, user: User):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get(self, uuid: str) -> User:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -16,7 +21,7 @@ class AbstractUserRepository(abc.ABC):
 class InMemoryUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._users = []
 
     def add(self, user: User):
@@ -24,6 +29,11 @@ class InMemoryUserRepository(AbstractUserRepository):
 
     def get_all(self) -> List[User]:
         return self._users
+
+    def get(self, uuid: Any) -> Optional[User]:
+        for user in self._users:
+            if user.uuid == uuid:
+                return user
 
     # For test purposes only
     @property

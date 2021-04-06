@@ -1,9 +1,10 @@
 import csv
 from pathlib import Path
-from domain.ports.user import User
-from helpers.csv import reset_file_from_path
 
 from adapters.csv_user_repository import CsvUserRepository
+from domain.models.user import User
+from domain.ports.uuid import CustomUuid
+from helpers.csv import reset_file_from_path
 
 csv_path = Path("tests/integration/data") / "user_repo.csv"
 user_example = User(name="patrice", status="contact", uuid="pat_uuid")

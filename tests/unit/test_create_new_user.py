@@ -1,12 +1,12 @@
-from domain.ports.user import User
+from domain.models.user import User
 from domain.ports.user_repository import InMemoryUserRepository
 from domain.ports.uuid import CustomUuid
 from domain.use_cases.create_new_user import CreateNewUser
 
 
 def test_create_new_user():
-    user_repository = InMemoryUserRepository()
     uuid = CustomUuid()
+    user_repository = InMemoryUserRepository()
     create_new_user = CreateNewUser(user_repository, uuid)
     uuid.set_next_uuid("pat_uuid")
     create_new_user.execute(name="patrice", status="active")

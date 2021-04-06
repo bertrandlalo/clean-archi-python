@@ -1,8 +1,9 @@
 import csv
 import os
-from typing import List, Optional
 from pathlib import Path
-from domain.ports.user import User
+from typing import List, Optional
+
+from domain.models.user import User
 from domain.ports.user_repository import (
     AbstractUserRepository,
 )
@@ -38,6 +39,7 @@ class CsvUserRepository(AbstractUserRepository):
 
     def add(self, user: User):
         self._users.append(user)
+
         writerow(
             self.csv_path,
             [
@@ -48,12 +50,12 @@ class CsvUserRepository(AbstractUserRepository):
         )
 
     def _from_csv(self) -> List[User]:
-        self._users = []
+        loaded_users = []
         with self.csv_path.open("r") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                self._users.append(User(**row))
-        return self._users
+                loaded_users.append(User(**row))
+        return loaded_users
 
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()

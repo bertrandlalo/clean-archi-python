@@ -1,5 +1,6 @@
-pytest 
+pytest
 flask
 flask_cors
 sqlalchemy
 psycopg2-binary
+google-cloud-ndb
