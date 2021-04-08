@@ -10,7 +10,11 @@ class AbstractUserRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, uuid: str) -> User:
+    def get(self, uuid: str) -> Optional[User]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_by_name(self, name: str) -> Optional[User]:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -21,8 +25,8 @@ class AbstractUserRepository(abc.ABC):
 class InMemoryUserRepository(AbstractUserRepository):
     _users: List[User]
 
-    def __init__(self) -> None:
-        self._users = []
+    def __init__(self, users: Optional[List[User]] = None) -> None:
+        self._users = users or []
 
     def add(self, user: User):
         self._users.append(user)
@@ -30,10 +34,13 @@ class InMemoryUserRepository(AbstractUserRepository):
     def get_all(self) -> List[User]:
         return self._users
 
-    def get(self, uuid: Any) -> Optional[User]:
+    def get(self, uuid: str) -> Optional[User]:
         for user in self._users:
             if user.uuid == uuid:
                 return user
+
+    def get_by_name(self, name: str) -> Optional[User]:
+        return next((user for user in self.users if user.name == name), None)
 
     # For test purposes only
     @property

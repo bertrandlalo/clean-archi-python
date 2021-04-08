@@ -60,6 +60,9 @@ class CsvUserRepository(AbstractUserRepository):
     def get(self, uuid: str) -> Optional[User]:
         return [user for user in self._users if user.uuid == uuid].pop()
 
+    def get_by_name(self, name: str) -> Optional[User]:
+        return [user for user in self._users if user.name == name].pop()
+
     def get_all(self) -> List[User]:
         return self._users
 
