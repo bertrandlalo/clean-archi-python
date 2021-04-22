@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from adapters.csv_topic_repository import CsvTopicRepository
 from adapters.csv_user_repository import CsvUserRepository
+from domain.models import commands
 from entrypoints.config.config import Config, get_api_host, get_api_port
 
 
