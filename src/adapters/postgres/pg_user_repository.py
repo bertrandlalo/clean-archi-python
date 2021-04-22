@@ -29,6 +29,9 @@ class PgUserRepository(AbstractUserRepository):
     def get_all(self) -> List[User]:
         raise NotImplementedError
 
+    def get_by_name(self) -> User:
+        raise NotImplementedError
+
     @property
     def users(self) -> List[User]:
         s = self.table.select()

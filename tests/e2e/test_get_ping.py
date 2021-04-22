@@ -24,9 +24,3 @@ def client():
 def test_get_ping(client):
     rv = client.get("/ping")
     assert json.loads(rv.data) == "pong!"
-
-
-def test_get_users(client):
-    rv = client.get("/users")
-    rv_json = rv.get_json()
-    assert type(rv_json) == list

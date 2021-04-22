@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-UserStatus = Literal["active", "contact", "deleted", "invited"]
+UserStatus = Literal["pending", "active", "contact", "deleted", "invited"]
 
 
 @dataclass
